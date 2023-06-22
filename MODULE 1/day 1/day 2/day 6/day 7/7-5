@@ -1,0 +1,34 @@
+class Student:
+    def __init__(self, name, age, grade):
+        self.name = name
+        self.age = age
+        self.grade = grade
+
+
+def search_students_by_name(students, name):
+    found_students = []
+    for student in students:
+        if student.name == name:
+            found_students.append(student)
+    return found_students
+
+
+# Example usage:
+# Create an array of Student objects
+students = [
+    Student("John Doe", 18, "A"),
+    Student("Jane Smith", 17, "B"),
+    Student("David Johnson", 16, "A"),
+    Student("John Doe", 20, "C"),
+]
+
+# Search for students with name "John Doe"
+search_results = search_students_by_name(students, "John Doe")
+
+# Print the search results
+if search_results:
+    print("Search results:")
+    for student in search_results:
+        print(f"Name: {student.name}, Age: {student.age}, Grade: {student.grade}")
+else:
+    print("No students found with the given name.")

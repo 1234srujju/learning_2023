@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Student {
+    int rollno;
+    char name[20];
+    float marks;
+};
+
+void parseInputString(const char *inputString, struct Student *students, int size) {
+    int i;
+    for (i = 0; i < size; i++) {
+        sscanf(inputString, "%d %s %f", &(students[i].rollno), students[i].name, &(students[i].marks));
+        inputString += strcspn(inputString, " \t\n") + 1;  // Move the pointer to the next token
+    }
+}
+
+int main() {
+    int size;
+    printf("Enter the number of students: ");
+    scanf("%d", &size);
+
+    // Dynamically allocate memory for the array of students
+    struct Student *students = (struct Student *)malloc(size * sizeof(struct Student));
+
+    if (students == NULL) {
+        printf("Memory allocation failed. Exiting program.\n");
+        return 1;
+    }
+
+    // Clear the input buffer
+    while (getchar() != '\n');
+
+    char inputString[100];
+    printf("Enter the student details (rollno name marks):\n");
+    fgets(inputString, sizeof(inputString), stdin);
+
+    // Remove the trailing newline character from fgets
+    inputString[strcspn(inputString, "\n")] = '\0';
+
+    parseInputString(inputString, students, size);
+
+    // Display the initialized array of structures
+    printf("\nStudent details:\n");
+    for (int i = 0; i < size; i++) {
+        printf("Student %d:\n", i + 1);
+        printf("Roll No: %d\n", students[i].rollno);
+        printf("Name: %s\n", students[i].name);
+        printf("Marks: %.2f\n", students[i].marks);
+        printf("\n");
+    }
+
+    // Free dynamically allocated memory
+    free(students);
+
+    return 0;
+}

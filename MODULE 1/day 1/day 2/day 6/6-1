@@ -1,0 +1,54 @@
+#include <stdio.h>
+
+struct Box {
+    float length;
+    float width;
+    float height;
+};
+
+float calculateVolume(struct Box *boxPtr) {
+    return boxPtr->length * boxPtr->width * boxPtr->height;
+}
+
+float calculateSurfaceArea(struct Box *boxPtr) {
+    float length = boxPtr->length;
+    float width = boxPtr->width;
+    float height = boxPtr->height;
+
+    return 2 * (length * width + length * height + width * height);
+}
+
+int main() {
+    struct Box myBox;
+    struct Box *boxPtr;
+
+    boxPtr = &myBox;
+
+    // Accessing members using indirection operator (*) and dot operator (.)
+    (*boxPtr).length = 5.0;
+    (*boxPtr).width = 3.0;
+    (*boxPtr).height = 2.0;
+
+    // Calculating volume and surface area using dot operator (.)
+    float volume = calculateVolume(&myBox);
+    float surfaceArea = calculateSurfaceArea(&myBox);
+
+    printf("Using indirection operator (*) and dot operator (.)\n");
+    printf("Volume: %.2f\n", volume);
+    printf("Surface Area: %.2f\n\n", surfaceArea);
+
+    // Accessing members using arrow operator (->)
+    boxPtr->length = 4.0;
+    boxPtr->width = 3.0;
+    boxPtr->height = 2.5;
+
+    // Calculating volume and surface area using arrow operator (->)
+    volume = calculateVolume(boxPtr);
+    surfaceArea = calculateSurfaceArea(boxPtr);
+
+    printf("Using arrow operator (->)\n");
+    printf("Volume: %.2f\n", volume);
+    printf("Surface Area: %.2f\n", surfaceArea);
+
+    return 0;
+}
